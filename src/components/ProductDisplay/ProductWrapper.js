@@ -1,26 +1,10 @@
 import React, { Component } from 'react';
 import { connect }    		from 'react-redux';
 import FilterOptions 		from './FilterOptions';
+import ProductList 			from './ProductList';
 import * as storiesActions  from '../../actions/';
 
-
-
-const Product = ({ title }) => {
-	return (
-		<li>
-			{title}
-		</li>	
-	)
-};//
-
-
-const ProductList = ({ umbrellas}) => {
-	return (
-		<ul>
-			{umbrellas.map(item => <Product key={item.tcin} {...item} />)}
-		</ul>
-	)
-};//
+let filterterm = [];
 
 class ProductDisplay extends Component{
 	state = {
@@ -31,15 +15,21 @@ class ProductDisplay extends Component{
 
 	handleFilter = (val) => {
 		const { umbrellas } = this.state;
+			let res=[];
 		val = val.split(' ')[0];
 
-		this.filterme.push(val);
+		filterterm.push(val);
 
-		const res = this.props.data.search_response.items.Item
-						.filter( el => el.title.toLowerCase().indexOf(val) >= 0 )
+		filterterm.forEach(elem => {
+			this.props.data.search_response.items.Item.forEach(el => {
+				if(el.title.toLowerCase().includes(elem)) 
+					res.push(el)
+			})
+		});
 
-		console.log(res.length)
-
+		console.log('filterterm -> ', filterterm)
+		console.log('RES -> ', res)
+		
 		if(res.length === 0 ){
 			const res = [{tcin:123, title:'no results'}]
 			this.setState(() => ({umbrellas: res}));
