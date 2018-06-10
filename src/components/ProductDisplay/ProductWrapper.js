@@ -4,31 +4,40 @@ import FilterOptions 		from './FilterOptions';
 import ProductList 			from './ProductList';
 import * as storiesActions  from '../../actions/';
 
-let filterterm = [];
-
 class ProductDisplay extends Component{
+	constructor(props){
+		super(props);
+		this.handleFilter = this.handleFilter.bind(this);		
+	}
+
 	state = {
 		umbrellas: this.props.data.search_response.items.Item
 	}
 
-	filterme = [];
+	filterterm = [];
 
-	handleFilter = (val) => {
-		const { umbrellas } = this.state;
-			let res=[];
+	handleFilter(val, checked) {
+		let { umbrellas } = this.state,
+			res=[],
+			idx = 0;
+		
 		val = val.split(' ')[0];
 
-		filterterm.push(val);
+		idx = this.filterterm.indexOf(val);
+		
+		if (checked) {
+			this.filterterm.push(val);
+		} else {
+			this.filterterm.splice(idx, 1);
+		}
 
-		filterterm.forEach(elem => {
+		//add in objects according to terms to filter
+		this.filterterm.forEach(elem => {
 			this.props.data.search_response.items.Item.forEach(el => {
 				if(el.title.toLowerCase().includes(elem)) 
 					res.push(el)
 			})
 		});
-
-		console.log('filterterm -> ', filterterm)
-		console.log('RES -> ', res)
 		
 		if(res.length === 0 ){
 			const res = [{tcin:123, title:'no results'}]
@@ -41,12 +50,16 @@ class ProductDisplay extends Component{
 	};
 
 	render(){
-		const { umbrellas } = this.state;
-
+		const { umbrellas } = this.state; 
+		const [ type, color ]  = this.props.data.search_response.facet_list;
+console.log('FILTERS COLOR: ', color)
+console.log('FILTERS TYPE: ', type)
 		return (
-			<div>
-				<FilterOptions handleFilter={this.handleFilter} />
-				<ProductList umbrellas={umbrellas} />
+			<div className="container">
+				<div className="row">
+					<FilterOptions handleFilter={this.handleFilter} type={type} />
+					<ProductList umbrellas={umbrellas}  />
+				</div>
 			</div>
 		)
 	}
@@ -66,3 +79,7 @@ const mapDispatch = (dispath) => {
 }
 
 export default connect(mapState, mapDispatch)(ProductDisplay);
+
+ProductDisplay.deafaultProps = {
+	data: {}	
+}

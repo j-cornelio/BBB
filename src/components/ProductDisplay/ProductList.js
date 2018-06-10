@@ -5,15 +5,21 @@ const Product = ({ title }) => <li>{title}</li>;//
 
 const ProductList = ({ umbrellas }) => {
 	return (
-		<ul>
-			{ umbrellas.map(item => 
-				<Product key={item.tcin} {...item} />) }
-		</ul>
+		<div className="col-md-8">
+			<ul>
+				{ umbrellas.map(item => 
+					<Product key={item.tcin} {...item} />) }
+			</ul>
+		</div>
 	)
 };//
 
 export default ProductList;
 
 ProductList.propTypes = {
-	handleFilter: PropTypes.func.isRequired
+	umbrellas: PropTypes.arrayOf( PropTypes.object ).isRequired
+}
+
+Product.propTypes = {
+	title: PropTypes.string.isRequired
 }
