@@ -1,7 +1,20 @@
 import React  from 'react';
 import PropTypes from 'prop-types';
+import Button from '@material-ui/core/Button';
 
-const Product = ({ title }) => <li>{title}</li>;//
+const Product = ({ title, url, images }) => {
+console.log(images);
+
+	images = images || [{base_url:''}];
+
+	return (
+		<li>
+			<img src={images[0].base_url + images[0].primary} />
+			<p>{title}</p> 
+			<Button variant="contained" color="primary">Add to Card</Button>
+		</li>
+	)
+}
 
 const ProductList = ({ umbrellas }) => {
 	return (

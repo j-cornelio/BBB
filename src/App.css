@@ -23,6 +23,14 @@ body {
 	margin-bottom: 30px;
 }
 
+.filteredBy {
+	border: 1px solid;
+	border-radius: 8px;
+	padding: 6px;
+	margin-right: 4px;
+	display: inline-block;
+	margin-bottom: 4px;
+}
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

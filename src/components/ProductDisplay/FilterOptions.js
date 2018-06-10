@@ -16,7 +16,9 @@ console.log('terms => ', terms);
 	return (
 		<div className={['col-md-4', 'types'].join(' ')}>
 			<h4>Filtered Results</h4>
-			<div>{terms.map( term => <span>{term} </span> )}</div>
+			<div>{terms.map( term => <span className="filteredBy">{term} </span> )}</div>
+
+			<hr />
 
 			<div>Filter by Category</div>
 			<form>

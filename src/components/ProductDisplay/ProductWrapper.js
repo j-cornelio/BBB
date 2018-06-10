@@ -16,20 +16,27 @@ class ProductDisplay extends Component{
 	}
 
 	filterterms = [];
-
+	
+	filteredBy = [];
+	
 	handleFilter(val, checked) {
 		let { umbrellas } = this.state,
 			res=[],
-			idx = 0;
-		
-		val = val.split(' ')[0];
+			idx = 0,
+			idx2 = 0,
+			split = [];
 
-		idx = this.filterterms.indexOf(val);
+		split = val.split(' ')[0];
+
+		idx = this.filterterms.indexOf(split);
+		idx2 = this.filteredBy.indexOf(val);
 		
 		if (checked) {
-			this.filterterms.push(val);
+			this.filterterms.push(split);
+			this.filteredBy.push(val);
 		} else {
 			this.filterterms.splice(idx, 1);
+			this.filteredBy.splice(idx2, 1)
 		}
 
 		//add in objects according to terms to filter
@@ -49,7 +56,7 @@ class ProductDisplay extends Component{
 
 		this.setState(() => ({
 				umbrellas: res,
-				filterterms: this.filterterms
+				filterterms: this.filteredBy
 			})
 		)
 	};
