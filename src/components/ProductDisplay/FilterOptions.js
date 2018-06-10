@@ -8,13 +8,16 @@ const Option = ({ filter, display_name }) => (
     </span> 
 )
 
-const FilterOptions = ({ handleFilter, type }) => {
+const FilterOptions = ({ handleFilter, type, terms }) => {
 	const filter = (e) => { 
 		handleFilter(e.target.value, e.target.checked) 
 	};
-
+console.log('terms => ', terms);
 	return (
 		<div className={['col-md-4', 'types'].join(' ')}>
+			<h4>Filtered Results</h4>
+			<div>{terms.map( term => <span>{term} </span> )}</div>
+
 			<div>Filter by Category</div>
 			<form>
 				{

@@ -11,10 +11,11 @@ class ProductDisplay extends Component{
 	}
 
 	state = {
-		umbrellas: this.props.data.search_response.items.Item
+		umbrellas: this.props.data.search_response.items.Item,
+		filterterms: []
 	}
 
-	filterterm = [];
+	filterterms = [];
 
 	handleFilter(val, checked) {
 		let { umbrellas } = this.state,
@@ -23,16 +24,16 @@ class ProductDisplay extends Component{
 		
 		val = val.split(' ')[0];
 
-		idx = this.filterterm.indexOf(val);
+		idx = this.filterterms.indexOf(val);
 		
 		if (checked) {
-			this.filterterm.push(val);
+			this.filterterms.push(val);
 		} else {
-			this.filterterm.splice(idx, 1);
+			this.filterterms.splice(idx, 1);
 		}
 
 		//add in objects according to terms to filter
-		this.filterterm.forEach(elem => {
+		this.filterterms.forEach(elem => {
 			this.props.data.search_response.items.Item.forEach(el => {
 				if(el.title.toLowerCase().includes(elem)) 
 					res.push(el)
@@ -46,18 +47,23 @@ class ProductDisplay extends Component{
 			return null;
 		}
 
-		this.setState(() => ({umbrellas: res}))
+		this.setState(() => ({
+				umbrellas: res,
+				filterterms: this.filterterms
+			})
+		)
 	};
 
 	render(){
-		const { umbrellas } = this.state; 
+		const { umbrellas, filterterms } = this.state; 
 		const [ type, color ]  = this.props.data.search_response.facet_list;
-console.log('FILTERS COLOR: ', color)
-console.log('FILTERS TYPE: ', type)
+
+console.log('filterterms: ', filterterms);
+
 		return (
 			<div className="container">
 				<div className="row">
-					<FilterOptions handleFilter={this.handleFilter} type={type} />
+					<FilterOptions handleFilter={this.handleFilter} type={type} terms={filterterms} />
 					<ProductList umbrellas={umbrellas}  />
 				</div>
 			</div>
