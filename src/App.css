@@ -35,8 +35,10 @@
 .productlist li {
 		list-style: none;
 		width: 48%;
-		display: inline-block;
+		height: 400px;
+		float: left;
 		margin-right: 5px;
+		margin-bottom: 10px;
 		border: 1px solid #aaa;
 		padding: 10px;
 	}
