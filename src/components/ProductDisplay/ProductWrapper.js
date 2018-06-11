@@ -2,17 +2,21 @@ import React, { Component } from 'react';
 import { connect }    		from 'react-redux';
 import FilterOptions 		from './FilterOptions';
 import ProductList 			from './ProductList';
+import ShoppingCart 			from './ShoppingCart';
 import * as storiesActions  from '../../actions/';
 
 class ProductDisplay extends Component{
 	constructor(props){
 		super(props);
-		this.handleFilter = this.handleFilter.bind(this);		
+		this.handleFilter 	= this.handleFilter.bind(this);		
+		this.handleFilter 	= this.handleFilter.bind(this);		
+		this.handleShopping = this.handleShopping.bind(this);		
 	}
 
 	state = {
 		umbrellas: this.props.data.search_response.items.Item,
-		filterterms: []
+		filterterms: [],
+		cart: sessionStorage.cart ? JSON.parse(sessionStorage.cart) : []
 	}
 
 	filterterms = [];
@@ -61,17 +65,20 @@ class ProductDisplay extends Component{
 		)
 	};
 
+	handleShopping(data){
+		this.setState( () => ({cart: data}) )
+	}
+
 	render(){
-		const { umbrellas, filterterms } = this.state; 
+		const { umbrellas, filterterms, cart } = this.state; 
 		const [ type, color ]  = this.props.data.search_response.facet_list;
-
-console.log('filterterms: ', filterterms);
-
+console.log('CART ', this.state)
 		return (
 			<div className="container">
+				<ShoppingCart cart={cart} />
 				<div className="row">
 					<FilterOptions handleFilter={this.handleFilter} type={type} terms={filterterms} />
-					<ProductList umbrellas={umbrellas}  />
+					<ProductList umbrellas={umbrellas} handleShopping={this.handleShopping}  />
 				</div>
 			</div>
 		)
