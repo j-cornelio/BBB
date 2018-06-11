@@ -1,12 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
 
-class AlertDialog extends React.Component {
+class AlertDialog extends Component {
   state = {
     open: false,
   };
@@ -19,9 +17,7 @@ class AlertDialog extends React.Component {
     let session = [];
 
     if(!!sessionStorage.cart)
-      session = JSON.parse(window.sessionStorage.cart)
-
-
+      session = JSON.parse(sessionStorage.cart)
 
     let data = {
       upc,
@@ -33,9 +29,7 @@ class AlertDialog extends React.Component {
 
     handleShopping(session);
     
-    window.sessionStorage.cart = JSON.stringify(session);
-
-    console.log('CART SESSION -> ', sessionStorage.cart)
+    sessionStorage.cart = JSON.stringify(session);
   };
 
   handleClose = () => {
@@ -43,11 +37,9 @@ class AlertDialog extends React.Component {
   };
 
   render() {
-    const { upc } = this.props.upc;
-
     return (
       <div>
-        <Button onClick={this.handleClickOpen}>Add to cart</Button>
+        <Button onClick={this.handleClickOpen} color="primary" className="primary-dialog">Add to cart</Button>
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}
@@ -69,3 +61,12 @@ class AlertDialog extends React.Component {
 }
 
 export default AlertDialog;
+
+AlertDialog.defaultProps = {
+  title: '',
+  url: '',
+  list_price: '',
+  upc: '',
+  handleShopping: function(){}
+};
+

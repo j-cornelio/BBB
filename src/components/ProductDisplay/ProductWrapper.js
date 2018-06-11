@@ -8,15 +8,16 @@ import * as storiesActions  from '../../actions/';
 class ProductDisplay extends Component{
 	constructor(props){
 		super(props);
+
+		this.state = {
+			umbrellas: this.props.data.search_response.items.Item,
+			filterterms: [],
+			cart: sessionStorage.cart ? JSON.parse(sessionStorage.cart) : []
+		}
+
 		this.handleFilter 	= this.handleFilter.bind(this);		
 		this.handleFilter 	= this.handleFilter.bind(this);		
 		this.handleShopping = this.handleShopping.bind(this);		
-	}
-
-	state = {
-		umbrellas: this.props.data.search_response.items.Item,
-		filterterms: [],
-		cart: sessionStorage.cart ? JSON.parse(sessionStorage.cart) : []
 	}
 
 	filterterms = [];
@@ -24,8 +25,7 @@ class ProductDisplay extends Component{
 	filteredBy = [];
 	
 	handleFilter(val, checked) {
-		let { umbrellas } = this.state,
-			res=[],
+		let res=[],
 			idx = 0,
 			idx2 = 0,
 			split = [];
@@ -71,8 +71,8 @@ class ProductDisplay extends Component{
 
 	render(){
 		const { umbrellas, filterterms, cart } = this.state; 
-		const [ type, color ]  = this.props.data.search_response.facet_list;
-console.log('CART ', this.state)
+		const [ type ]  = this.props.data.search_response.facet_list;
+
 		return (
 			<div className="container">
 				<ShoppingCart cart={cart} />
@@ -83,7 +83,7 @@ console.log('CART ', this.state)
 			</div>
 		)
 	}
-};//
+};
 
 const mapState = (state) => {
 	return {

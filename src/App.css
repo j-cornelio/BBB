@@ -1,6 +1,3 @@
-body {
-	padding: 5%;
-}
 .App-header {
   background-color: #222;
   height: 150px;
@@ -16,12 +13,43 @@ body {
   font-size: large;
 }
 
-.header {
+.container {
+	margin: 20px;
+}
+.product-header {
 	text-align: center;
-	border: 1px solid red;
 	padding: 10px;
 	margin-bottom: 30px;
+	background: red;
+	color: white;
 }
+
+.filterForm input {
+	margin-right: 4px;
+}
+
+.filterForm label {
+	margin-right: 32px;
+}
+
+.productlist li {
+		list-style: none;
+		width: 48%;
+		display: inline-block;
+		margin-right: 5px;
+		border: 1px solid #aaa;
+		padding: 10px;
+	}
+
+.productlist li button {
+		background: red;
+		color: white;
+	}
+
+
+.productlist li img {
+		width: 90%;
+	}
 
 .filteredBy {
 	border: 1px solid;
@@ -31,6 +59,7 @@ body {
 	display: inline-block;
 	margin-bottom: 4px;
 }
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

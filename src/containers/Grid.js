@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import ProductDisplay              from '../components/ProductDisplay/ProductWrapper';
 
-const Header = () => (
-	<h1 className="header">Umbrellas</h1>
-);//
+const Header = () => <h1 className="product-header">Umbrellas</h1>;
 
 class Grid extends Component {
   render() {

@@ -8,20 +8,25 @@ const Option = ({ filter, display_name }) => (
     </span> 
 )
 
+Option.propTypes = {
+	filter: PropTypes.func.isRequired,
+	display_name: PropTypes.string.isRequired
+}
+
 const FilterOptions = ({ handleFilter, type, terms }) => {
 	const filter = (e) => { 
 		handleFilter(e.target.value, e.target.checked) 
 	};
-console.log('terms => ', terms);
+
 	return (
-		<div className={['col-md-4', 'types'].join(' ')}>
+		<div className="col-md-4">
 			<h4>Filtered Results</h4>
 			<div>{terms.map( term => <span className="filteredBy">{term} </span> )}</div>
 
 			<hr />
 
 			<div>Filter by Category</div>
-			<form>
+			<form className="filterForm">
 				{
 					 type.details.map( elem => (
 					 	<Option key={elem.facetId} filter={filter} {...elem} />
@@ -30,9 +35,14 @@ console.log('terms => ', terms);
 			</form>
 		</div>
 	)
-};//
+};
 
 export default FilterOptions;
+
+FilterOptions.defaultProps = {
+	terms: [],
+	type: {}
+}
 
 FilterOptions.propTypes = {
 	handleFilter: PropTypes.func.isRequired

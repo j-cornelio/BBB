@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 const ShoppingCart = ({ cart }) => (
 	<h5>Your Cart has ({cart.length} items)</h5>
