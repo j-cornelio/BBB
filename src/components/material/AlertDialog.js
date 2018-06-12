@@ -10,7 +10,7 @@ class AlertDialog extends Component {
   };
 
   handleClickOpen = () => {
-    let { upc, title, list_price, handleShopping } = this.props;
+    let { upc, title, list_price, handleShopping, url, images } = this.props;
 
     this.setState({ open: true });
 
@@ -23,6 +23,8 @@ class AlertDialog extends Component {
       upc,
       list_price,
       title,
+      url, 
+      images
     }
 
     session.push(data);

@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect }    		from 'react-redux';
 import FilterOptions 		from './FilterOptions';
 import ProductList 			from './ProductList';
-import ShoppingCart 			from './ShoppingCart';
+import ShoppingCart 		from './ShoppingCart';
+import AlertDialog 			from '../material/AlertDialog';
 import * as storiesActions  from '../../actions/';
 
 class ProductDisplay extends Component{
